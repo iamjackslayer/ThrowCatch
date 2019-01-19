@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(new MyApp());
 
@@ -31,17 +30,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  String _text = "";
+  String _gyroText = "";
+  String _accelerometerText = "";
+
+  AccelerometerEvent _accelerometerEvent;
+  GyroscopeEvent _gyroscopeEvent;
 
   @override
   Widget build(BuildContext context) {
 
-    accelerometerEvents.listen((AccelerometerEvent e) {
-      setState(() {
-        _text = e.toString();
-        print(e);
+      accelerometerEvents.listen((AccelerometerEvent e) {
+        setState(() {
+          _accelerometerText = e.toString();
+          _accelerometerEvent = e;
+          print(_accelerometerText);
+        });
+
       });
 
+    gyroscopeEvents.listen((GyroscopeEvent e) {
+      setState(() {
+        _gyroText = e.toString();
+        _gyroscopeEvent = e;
+        print(_gyroText);
+      });
     });
 
     return new Scaffold(
@@ -57,12 +69,36 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
-              'You have pushed the button this many times:',
+              '$_accelerometerText',
             ),
             new Text(
-              '$_text',
+              '$_gyroText',
               style: Theme.of(context).textTheme.display1,
             ),
+            new IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Firestore.instance.collection('users')
+                  .document()
+                  .collection('accelerometerEvent')
+                  .document()
+                  .setData({
+                    'x': _accelerometerEvent.x,
+                    'y': _accelerometerEvent.y,
+                    'z': _accelerometerEvent.z
+                  });
+
+                  Firestore.instance.collection('users')
+                      .document()
+                      .collection('gyroscopeEvent')
+                      .document()
+                      .setData({
+                    'x': _gyroscopeEvent.x,
+                    'y': _gyroscopeEvent.y,
+                    'z': _gyroscopeEvent.z
+                  });
+                }
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.

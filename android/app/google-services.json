@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "207417524167",
+    "firebase_url": "https://throwcatch-8cc73.firebaseio.com",
+    "project_id": "throwcatch-8cc73",
+    "storage_bucket": "throwcatch-8cc73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207417524167:android:152784ac88cdd7f0",
+        "android_client_info": {
+          "package_name": "com.leet.throwcatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207417524167-j1en3po33pc5eg6qq1s40dgn868omo7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leet.throwcatch",
+            "certificate_hash": "16b9c910e1ff09f4f08080ddfefd66a192e7dd16"
+          }
+        },
+        {
+          "client_id": "207417524167-lo0034lmtdfma5vm54jhc24o3e9qkuoe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADASKXN24JJVKO9jIAPSkfv9riEEg0XTE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207417524167-lo0034lmtdfma5vm54jhc24o3e9qkuoe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
