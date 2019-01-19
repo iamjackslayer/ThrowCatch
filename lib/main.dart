@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           _accelerometerText = e.toString();
           _accelerometerEvent = e;
-          print(_accelerometerText);
+          _notifyDatabase();
         });
 
       });
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _gyroText = e.toString();
         _gyroscopeEvent = e;
-        print(_gyroText);
+        _notifyDatabase();
       });
     });
 
@@ -73,35 +73,38 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Text(
               '$_gyroText',
-              style: Theme.of(context).textTheme.display1,
+//              style: Theme.of(context).textTheme.display1,
             ),
             new IconButton(
                 icon: Icon(Icons.add),
-                onPressed: () {
-                  Firestore.instance.collection('users')
-                  .document()
-                  .collection('accelerometerEvent')
-                  .document()
-                  .setData({
-                    'x': _accelerometerEvent.x,
-                    'y': _accelerometerEvent.y,
-                    'z': _accelerometerEvent.z
-                  });
-
-                  Firestore.instance.collection('users')
-                      .document()
-                      .collection('gyroscopeEvent')
-                      .document()
-                      .setData({
-                    'x': _gyroscopeEvent.x,
-                    'y': _gyroscopeEvent.y,
-                    'z': _gyroscopeEvent.z
-                  });
+                onPressed: () async {
+                  _notifyDatabase();
                 }
             )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void _notifyDatabase() async {
+    DocumentReference doc = Firestore.instance.collection('users').document('121');
+
+    await doc.collection('accelerometerEvent')
+        .document()
+        .setData({
+      'x': _accelerometerEvent.x,
+      'y': _accelerometerEvent.y,
+      'z': _accelerometerEvent.z
+    });
+
+    await doc.collection('gyroscopeEvent')
+        .document()
+        .setData({
+      'x': _gyroscopeEvent.x,
+      'y': _gyroscopeEvent.y,
+      'z': _gyroscopeEvent.z
+    });
+    print("hello");
   }
 }
