@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -78,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () async {
-                  _notifyDatabase();
+                  await _notifyDatabase();
                 }
             )
           ],
@@ -87,11 +89,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _notifyDatabase() async {
+  _notifyDatabase() async {
     DocumentReference doc = Firestore.instance.collection('users').document('121');
 
     await doc.collection('accelerometerEvent')
-        .document()
+        .document('accelerometer_doc')
         .setData({
       'x': _accelerometerEvent.x,
       'y': _accelerometerEvent.y,
@@ -99,12 +101,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     await doc.collection('gyroscopeEvent')
-        .document()
+        .document('gyroscope_doc')
         .setData({
       'x': _gyroscopeEvent.x,
       'y': _gyroscopeEvent.y,
       'z': _gyroscopeEvent.z
     });
     print("hello");
+    return null;
   }
+
 }
