@@ -256,6 +256,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.29.0+1"
+  scoped_model:
+    dependency: "direct main"
+    description:
+      name: scoped_model
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   sensors:
     dependency: "direct main"
     description:
@@ -317,6 +324,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  spritewidget:
+    dependency: "direct main"
+    description:
+      name: spritewidget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.17"
   stack_trace:
     dependency: transitive
     description:

@@ -12,8 +12,11 @@ version: 1.0.0+1
 dependencies:
   flutter:
     sdk: flutter
+
   sensors:
   cloud_firestore:
+  spritewidget:
+  scoped_model: ^1.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -39,6 +42,80 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+  assets:
+      - assets/0.png
+      - assets/5.png
+      - assets/10.png
+      - assets/15.png
+      - assets/20.png
+      - assets/25.png
+      - assets/30.png
+      - assets/35.png
+      - assets/40.png
+      - assets/45.png
+      - assets/50.png
+      - assets/55.png
+      - assets/60.png
+      - assets/65.png
+      - assets/70.png
+      - assets/75.png
+      - assets/80.png
+      - assets/85.png
+      - assets/90.png
+      - assets/95.png
+      - assets/100.png
+      - assets/105.png
+      - assets/110.png
+      - assets/115.png
+      - assets/120.png
+      - assets/125.png
+      - assets/130.png
+      - assets/135.png
+      - assets/140.png
+      - assets/145.png
+      - assets/150.png
+      - assets/155.png
+      - assets/160.png
+      - assets/165.png
+      - assets/170.png
+      - assets/175.png
+      - assets/180.png
+      - assets/185.png
+      - assets/190.png
+      - assets/195.png
+      - assets/200.png
+      - assets/205.png
+      - assets/210.png
+      - assets/215.png
+      - assets/220.png
+      - assets/225.png
+      - assets/230.png
+      - assets/235.png
+      - assets/240.png
+      - assets/245.png
+      - assets/250.png
+      - assets/255.png
+      - assets/260.png
+      - assets/265.png
+      - assets/270.png
+      - assets/275.png
+      - assets/280.png
+      - assets/285.png
+      - assets/290.png
+      - assets/295.png
+      - assets/300.png
+      - assets/305.png
+      - assets/310.png
+      - assets/315.png
+      - assets/320.png
+      - assets/325.png
+      - assets/330.png
+      - assets/335.png
+      - assets/340.png
+      - assets/345.png
+      - assets/350.png
+      - assets/355.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

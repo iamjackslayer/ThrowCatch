@@ -1,8 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:sensors/sensors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:ui' as ui show Image;
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:scoped_model/scoped_model.dart';
+
 
 void main() => runApp(new MyApp());
 
@@ -30,85 +32,79 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<int> _animation;
 
-  String _gyroText = "";
-  String _accelerometerText = "";
+  @override
+  void initState() {
+    _controller = new AnimationController(vsync: this, duration: const Duration(milliseconds: 1000))
+      ..repeat();
+    _animation = new IntTween(begin: 0, end: 71).animate(_controller);
+  }
 
-  AccelerometerEvent _accelerometerEvent;
-  GyroscopeEvent _gyroscopeEvent;
+
+
+
 
   @override
   Widget build(BuildContext context) {
 
-      accelerometerEvents.listen((AccelerometerEvent e) {
-        setState(() {
-          _accelerometerText = e.toString();
-          _accelerometerEvent = e;
-          _notifyDatabase();
-        });
-
-      });
-
-    gyroscopeEvents.listen((GyroscopeEvent e) {
-      setState(() {
-        _gyroText = e.toString();
-        _gyroscopeEvent = e;
-        _notifyDatabase();
-      });
-    });
-
     return new Scaffold(
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
+      body: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {
+              if (_controller.isAnimating) {
+                _controller.stop();
+              } else {
+                _controller.forward();
+              }
+              print("tapped");
+            },
+            child: new AnimatedBuilder(
+              animation: _animation,
+              builder: (BuildContext context, Widget child) {
+                String frame = (_animation.value * 5).toString();
+                return new Image.asset(
+                  'assets/$frame.png',
+                  gaplessPlayback: true,
+                );
+              },
+            ),
+          ),
+          new Text('Image: Guillaume Kurkdjian', style: new TextStyle(fontStyle: FontStyle.italic)),
+        ],
       ),
-      body: new Center(
-
-        child: new Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Text(
-              '$_accelerometerText',
-            ),
-            new Text(
-              '$_gyroText',
-//              style: Theme.of(context).textTheme.display1,
-            ),
-            new IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () async {
-                  await _notifyDatabase();
-                }
-            )
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  _notifyDatabase() async {
-    DocumentReference doc = Firestore.instance.collection('users').document('121');
-
-    await doc.collection('accelerometerEvent')
-        .document('accelerometer_doc')
-        .setData({
-      'x': _accelerometerEvent.x,
-      'y': _accelerometerEvent.y,
-      'z': _accelerometerEvent.z
-    });
-
-    await doc.collection('gyroscopeEvent')
-        .document('gyroscope_doc')
-        .setData({
-      'x': _gyroscopeEvent.x,
-      'y': _gyroscopeEvent.y,
-      'z': _gyroscopeEvent.z
-    });
-    print("hello");
-    return null;
+  void checkStatus() {
+    if (_animation.value == 5) {
+      print("Good");
+    }
   }
 
+
+}
+
+
+class StickModel extends Model {
+  int index = 0;
+
+  Future<void> animateImages() async {
+    while(true) {
+      Future.delayed(Duration(milliseconds: 100));
+
+        if (index == 355) {
+          index = 0;
+        }
+        index += 5;
+        print("index is $index");
+      notifyListeners();
+    }
+
+  }
+  
 }
